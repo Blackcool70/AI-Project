@@ -1,6 +1,13 @@
+"""
+Author: Atef Yassine
+Info: This program uses Rachel's restaurant excel file and outputs a file filled with data
+      based on rachel's file keeping consistency between liked/not liked restaurants
+"""
+
 import xlrd
 import xlwt
 import random
+
 
 """helper functions"""
 def listify(worksheet,col_num):
@@ -69,18 +76,19 @@ for i in range(1,101):
 #--------------First Field (Member's numbers)----------------------------#
     row = sheet.row(i)
     row.write(0,'member'+str(i))
+#--------------Second Field (Genre list)----------------------------#
     list_ = random_choice(list(set(genre_list)),random.randint(1,num_of_genres))
     list_ = list(set(list_))
     fmt = ", ".join(f"{genre}" for genre in list_)
     row.write(1,fmt)
-#--------------Second field (Sit vs driveThru)----------------------------#
+#--------------Third field (Sit vs driveThru)----------------------------#
     row.write(2,random.choice(sitdown_vs_drivethru))
-#--------------Third field (Location pref)----------------------------#
+#--------------Fourth field (Location pref)----------------------------#
     row.write(3,random.choice(location_list))
-#--------------Fourth field (Prices pref)----------------------------#
+#--------------Fifth field (Prices pref)----------------------------#
     price = random.choice(price_list)
     row.write(4,price)
-#--------------Fifth field (Liked List)----------------------------#
+#--------------Sixth field (Liked List)----------------------------#
     if price == '$':
         rest_list = low_rest
     elif price == '$$':
@@ -91,7 +99,7 @@ for i in range(1,101):
     likedList = list(set(likedList))
     fmt = ", ".join(f"{rest}" for rest in likedList)
     row.write(5,fmt)
-#--------------Sixth field (NotLiked List)----------------------------#
+#--------------Seventh field (NotLiked List)----------------------------#
     notLikedList = []
     for item in rest_list:
         if item in likedList:
@@ -104,10 +112,10 @@ for i in range(1,101):
     print(notLikedList)
     fmt = ", ".join(f"{rest}" for rest in list(set(notLikedList)))
     row.write(6,fmt)
-#---------------Seventh field (Ate Recently)---------------------------#
+#---------------Eighth field (Ate Recently)---------------------------#
     list_ = random.choice(likedList)
     row.write(7,list_)
-#---------------Eighth field (Ate longest ago)---------------------------#
+#---------------Ninth field (Ate longest ago)---------------------------#
     list_ = random.choice(likedList)
     row.write(8,list_)
 
