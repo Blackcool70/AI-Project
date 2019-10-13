@@ -12,7 +12,7 @@ def selectRestaurants():
     """
     pass
 
-def selectLiked(base=restaurants()):
+def selectLiked(base=selectRestaurants()):
     """
     Select the list of all restaurants that have been liked.
     
@@ -30,7 +30,7 @@ def selectLiked(base=restaurants()):
     """
     pass
 
-def selectGenre(genre, base=restaurants()):
+def selectGenre(genre, base=selectRestaurants()):
     """
     Select the list of all restaurants with a given genre.
     
@@ -49,7 +49,7 @@ def selectGenre(genre, base=restaurants()):
     """
     pass
 
-def selectPriceLevel(priceLevel, base=restaurants()):
+def selectPriceLevel(priceLevel, base=selectRestaurants()):
     """
     Select the list of all restaurants with a given price level.
     
@@ -68,7 +68,7 @@ def selectPriceLevel(priceLevel, base=restaurants()):
     """
     pass
 
-def selectLocation(location, base=restaurants()):
+def selectLocation(location, base=selectRestaurants()):
     """
     Select the list of all restaurants in a given location.
     
