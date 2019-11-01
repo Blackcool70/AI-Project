@@ -1,13 +1,7 @@
-"""
-Author: Atef Yassine
-Info: This program uses Rachel's restaurant excel file and outputs a file filled with data
-      based on rachel's file keeping consistency between liked/not liked restaurants
-"""
-
 import xlrd
 import xlwt
 import random
-
+import os
 
 """helper functions"""
 def listify(worksheet,col_num):
@@ -59,7 +53,8 @@ randomly based on a big excel file with data that rachel created..
 """
 workbook = xlwt.Workbook()
 sheet = workbook.add_sheet('Sheet1')
-
+max = int(input("Enter the number of data you want to generate: "))
+fileName = input("Enter file name to save data to: ")
 row = sheet.row(0)
 row.write(0,'Name')
 row.write(1,'Genre Likes')
@@ -72,23 +67,22 @@ row.write(7,'Ate Recently')
 row.write(8,'Ate Longest Ago')
 
 #Loop to populate fields
-for i in range(1,101):
+for i in range(1,max + 1):
 #--------------First Field (Member's numbers)----------------------------#
     row = sheet.row(i)
     row.write(0,'member'+str(i))
-#--------------Second Field (Genre list)----------------------------#
     list_ = random_choice(list(set(genre_list)),random.randint(1,num_of_genres))
     list_ = list(set(list_))
     fmt = ", ".join(f"{genre}" for genre in list_)
     row.write(1,fmt)
-#--------------Third field (Sit vs driveThru)----------------------------#
+#--------------Second field (Sit vs driveThru)----------------------------#
     row.write(2,random.choice(sitdown_vs_drivethru))
-#--------------Fourth field (Location pref)----------------------------#
+#--------------Third field (Location pref)----------------------------#
     row.write(3,random.choice(location_list))
-#--------------Fifth field (Prices pref)----------------------------#
+#--------------Fourth field (Prices pref)----------------------------#
     price = random.choice(price_list)
     row.write(4,price)
-#--------------Sixth field (Liked List)----------------------------#
+#--------------Fifth field (Liked List)----------------------------#
     if price == '$':
         rest_list = low_rest
     elif price == '$$':
@@ -99,7 +93,7 @@ for i in range(1,101):
     likedList = list(set(likedList))
     fmt = ", ".join(f"{rest}" for rest in likedList)
     row.write(5,fmt)
-#--------------Seventh field (NotLiked List)----------------------------#
+#--------------Sixth field (NotLiked List)----------------------------#
     notLikedList = []
     for item in rest_list:
         if item in likedList:
@@ -109,15 +103,29 @@ for i in range(1,101):
         notLikedList = random_choice(list(set(notLikedList)),random.randint(1,5))
     except:
         pass
-    print(notLikedList)
     fmt = ", ".join(f"{rest}" for rest in list(set(notLikedList)))
     row.write(6,fmt)
-#---------------Eighth field (Ate Recently)---------------------------#
+#---------------Seventh field (Ate Recently)---------------------------#
     list_ = random.choice(likedList)
     row.write(7,list_)
-#---------------Ninth field (Ate longest ago)---------------------------#
+#---------------Eighth field (Ate longest ago)---------------------------#
     list_ = random.choice(likedList)
     row.write(8,list_)
+#--------------------------------------------------------------------------#
+""" Checks if file is in the directory, if it is, ask to overwrite, otherwise
+    cancel."""
+if os.path.isfile(f'{os.getcwd()}/{fileName}.xls'):
+    answer = input("That file already exists, overwrite? [Y/n]: ")
+    while answer.lower() not in ['y','n','yes','no']:
+        answer = input("Not the answer i'm looking for, try again [Y/n]: ")
 
-#Saves the file...
-workbook.save('memebrsData.xls')
+    if answer.lower() == 'yes' or answer.lower() == 'y':
+        #Saves the file...
+        workbook.save(f"{fileName}.xls")
+        print(f"\n[{str(max)}] random people have been successfully generated and saved to [{fileName}.xls]")
+    else:
+        print("Cancelling...")
+else:
+        #Saves the file...
+        workbook.save(f"{fileName}.xls")
+        print(f"\n[{str(max)}] random people have been successfully generated and saved to [{fileName}.xls]")
