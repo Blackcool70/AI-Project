@@ -37,10 +37,10 @@ examplesOfRecent   = Relation('was recently eaten', 1, ateRecently)
 examplesOfLongest  = Relation('was eaten long ago', 1, ateLongestAgo)
 
 # Gather XLS sheets
-restaurantWB = open_workbook('restaurantData.xls')
+restaurantWB = open_workbook('Project/restaurantData.xls')
 rData = restaurantWB.sheet_by_index(0)
 
-membersWB = open_workbook('membersData.xls')
+membersWB = open_workbook('Project/membersData.xls')
 mData = membersWB.sheet_by_index(0)
 
 
