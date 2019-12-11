@@ -1,0 +1,8 @@
+Always worried about food
+atef,london,rachel,alexis,ibsa,jecsan
+mcdonalds:10,subway:20,taco bell:30,burger king:30
+burger king:40,mcdonalds:20,wendys:10,subway:5
+braums:10,mcdonalds:10,burger king:30, subway:15,taco bell:40
+subway:40,mcdonalds:3,burger king:7,braums:10
+taco bell:12,subway:15,mcdonalds:30,burger king:40
+subway:12,mcdonalds:15,burger king:20,wendys:10
