@@ -99,7 +99,7 @@ def sort_by_nth_item(tuple_arr, n=0):
 
 def find_top_N_restaurants(person, N, first=0, last=None):
     if len(person.objects(likes)) < N:
-        raise NotEnoughRestaurantsLikedError()
+        raise NotEnoughLikedRestaurantsError()
     if last == first:
         raise NotEnoughRestaurantsError()
     scores = []
