@@ -32,6 +32,10 @@ class NotEnoughPeopleError(Exception):
     pass
 
 
+class NotEnoughLikedRestaurantsError(Exception):
+    pass
+
+
 def bayesian_classifier(person, features):
     likesset = set(person.objects(likes))
     n = len(features) - 1
@@ -94,6 +98,8 @@ def sort_by_nth_item(tuple_arr, n=0):
 
 
 def find_top_N_restaurants(person, N, first=0, last=None):
+    if len(person.objects(likes)) < N:
+        raise NotEnoughRestaurantsLikedError()
     if last == first:
         raise NotEnoughRestaurantsError()
     scores = []
