@@ -144,6 +144,24 @@ def csv2list(csv, sep=','):
     if len(lst) == 1 and lst[0] == '': return []
     return lst
 
+
+def handleTopNError(lmbda):
+    try:
+        lmbda()
+    except NotEnoughRestaurantsError:
+        print("Could not find enough restaurants user might like.")
+        print("Please add more likes for that user.")
+        return -1
+    except NotEnoughPeopleError:
+        print("Please add more people to your group.")
+        return -2
+    except NotEnoughLikedRestaurantsError:
+        print("Fewer than N restaurants were liked.")
+        print("Please add more likes for that user.")
+        return -3
+    return 0
+
+
 def main():
     print()
     print(f"{APP_NAME}")
@@ -177,10 +195,16 @@ def main():
             r = likes[0]
             p = int(likes[1])
             user_likes_restaurant(m,r,p)
-        print_top_N(member,5)
+        if handleTopNError(lambda: print_top_N(member,5)) < 0:
+            return
+
         print("\n"*2)
 
-    print(f"After a lot of thought, I have decided that the group should go eat at: [{find_group_top_N_restaurants(members,1)[0]}]")
+    topN = handleTopNError(lambda: find_group_top_N_restaurants(members,1)[0])
+    if topN < 0:
+        return
+    print(f"After a lot of thought, I have decided that the group should go eat at: [{topN}]")
+
 
 if __name__ == '__main__':
     main()
